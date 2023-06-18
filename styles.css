@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: solid black;
+    margin-left: auto;
+    margin-right: auto;
+    width: 310px;
+}
+
+#display {
+    display: flex;
+    justify-content: flex-start;
+    border: solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    font-size: 36px;
+}
+
+#topButtons {
+    display: flex;
+}
+
+#topButtons button {
+    padding: 24px;
+    font-size: 16px;
+}
+
+#numbersAndMath {
+    display: flex;
+    justify-content: space-around;
+}
+
+#numbers {
+    display: flex;
+    flex-direction: column;
+}
+
+#numbers button {
+    padding: 28px;
+    font-size: 18px;
+}
+
+
+#mathOperators {
+    display: flex;
+    flex-direction: column;
+}
+
+#mathOperators button {
+    padding: 28px;
+    font-size: 16px;
+}
+
+button#equals {
+    padding-top: 42px;
+    padding-bottom: 42px;
+}
