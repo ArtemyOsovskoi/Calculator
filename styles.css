@@ -24,12 +24,13 @@ html,body {
 
 #display {
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
+    max-height: 20px;
     border: solid black;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     padding-left: 10px;
-    font-size: 36px;
+    font-size: 32px;
 }
 
 #topButtons {
