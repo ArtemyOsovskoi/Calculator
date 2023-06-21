@@ -35,76 +35,23 @@ let displayValue = 0;
 let getDisplay = document.getElementById('display');
 let numButtons = document.querySelectorAll('.num');
 
+
+
 function fillDisplay () {
     Array.from(numButtons).forEach((num) => { //convert numButtons DOMnodes to an array with Array.from()
         num.addEventListener('click', () => {
-            getDisplay.innerHTML = num.value;
-            displayValue = num.value;
+            let displayLength = getDisplay.innerText;
+            console.log(displayLength.length);
+            if (displayLength.length < 20) {
+                getDisplay.innerText += num.value;
+                displayValue = num.value;
+            }
         })
     })
 }
 fillDisplay();
 
 
-/* const one = document.getElementById('1');
-const two = document.getElementById('2');
-const three = document.getElementById('3');
-const four = document.getElementById('4');
-const five = document.getElementById('5');
-const six = document.getElementById('6');
-const seven = document.getElementById('7');
-const eight = document.getElementById('8');
-const nine = document.getElementById('9');
-const zero = document.getElementById('0');
-const dot = document.getElementById('.');
 
-function fillDisplay () {
-    one.addEventListener('click', () => {
-        getDisplay.innerHTML = one.value;
-        displayValue = 1;
-    });
-    two.addEventListener('click', () => {
-        getDisplay.innerHTML = two.value;
-        displayValue = 2;
-    });
-    three.addEventListener('click', () => {
-        getDisplay.innerHTML = three.value;
-        displayValue = 3;
-    });
-    four.addEventListener('click', () => {
-        getDisplay.innerHTML = four.value;
-        displayValue = 4;
-    });
-    five.addEventListener('click', () => {
-        getDisplay.innerHTML = five.value;
-        displayValue = 5;
-    });
-    six.addEventListener('click', () => {
-        getDisplay.innerHTML = six.value;
-        displayValue = 6;
-    });
-    seven.addEventListener('click', () => {
-        getDisplay.innerHTML = seven.value;
-        displayValue = 7;
-    });
-    eight.addEventListener('click', () => {
-        getDisplay.innerHTML = eight.value;
-        displayValue = 8;
-    });
-    nine.addEventListener('click', () => {
-        getDisplay.innerHTML = nine.value;
-        displayValue = 9;
-    });
-    zero.addEventListener('click', () => {
-        getDisplay.innerHTML = zero.value;
-        displayValue = 0;
-    });
-    dot.addEventListener('click', () => {
-        getDisplay.innerHTML = dot.value;
-    });
-}
-
-fillDisplay(); */
-
-
+//на 21.06: понять как поставить лимит на вводимые числа, перейти к следующей задаче 
 
