@@ -15,11 +15,6 @@ function divide (a, b) {
     return a / b
 }
 
-//variables
-let a = 0; //first entered number
-let b = 0; //second entered number
-let mathOperations = [add, subtract, multiply, divide]; //store all operation in one variable
-
 //operate function
 function operate(operator, a, b) {
     if (operator == '+') {return add(a, b)}
@@ -28,28 +23,47 @@ function operate(operator, a, b) {
     if (operator == '/') {return divide(a, b)}
 }
 
-
-//fill display with entered numbers function, store entered value in variable
-let displayValue = 0;
-let getDisplay = document.getElementById('inputDisplay');
+//variables
+/* let displayValue = 0; */
+let getInputDisplay = document.getElementById('inputDisplay');
+let getResultDisplay = document.getElementById('resultDisplay');
 let numButtons = document.querySelectorAll('.num');
 let mathOpButtons = document.querySelectorAll('.math');
+let equalsButton = document.getElementById('equals');
 
+let a = 0; //first entered number
+let b = 0; //second entered number
+let mathOperations = [add, subtract, multiply, divide]; //store all operation in one variable
+let operator = '';
+
+//fill display with entered numbers function, store entered value in variable
 function fillDisplay () {
     Array.from(numButtons).forEach((num) => { //convert numButtons DOMnodes to an array with Array.from()
-        num.addEventListener('click', () => {
-            let displayLength = getDisplay.innerText;
-            if (displayLength.length < 55) { //set limit on a numbers entered
-                getDisplay.innerText += num.value;
-                displayValue = num.value; //store entered value in variable
+        num.addEventListener('click', (event) => {
+            let displayLength = getInputDisplay.innerText;
+            if (displayLength.length < 55 && operator === '') { //set limit on a numbers entered
+                getInputDisplay.innerText += num.value; 
+                a += event.target.value; 
+                console.log(a);
+                /* displayValue = num.value; //store entered value in variable */
+            } else {
+                getInputDisplay.innerText += num.value; 
+                b += event.target.value; 
+                console.log(b);
             }
         })
     })
     Array.from(mathOpButtons).forEach((math) => { 
-        math.addEventListener('click', () => {
-            getDisplay.innerText += math.value;    
+        math.addEventListener('click', (event) => {
+            getInputDisplay.innerText += math.value;
+            operator = event.target.innerText;
+            console.log(operator)
         })
     })
+    equalsButton.addEventListener('click', () => {
+        getResultDisplay.innerText = calculator(a, operator, b); //get and display calculator return value
+    })
+
 }
 fillDisplay();
 
@@ -61,21 +75,10 @@ fillDisplay();
 //calculator function
 
 
-function calculator () {
-    let a = displayValue;
-
+function calculator (firstNum, operator, secondNum) {
+    firstNum = Number(a);
+    secondNum = Number(b);
+    if (operator === '+' || operator === '-' || operator === '*' || operator === '/') {
+        return operate(operator, firstNum, secondNum)
+    }
 }
-
-/* Проблема: нужно написать функцию калькулятор, которая 
-- сохраняет первое введенное число в переменной,когда пользователь нажимает на кнопку математической операции, 
-- сохранить второе число и эту выбранную операцию
-- наконец вызвать operate() на этих числах и операции, произведя подсчет 
-
-Ввод: число, математическая операция, равенство
-Вывод: результат подсчета
-
-Алгоритм:
-    1. Сохранить первое введенное число в переменной
-    2. Сохранить второе число и операцию
-    3. Вызвать operate() и вернуть результат подсчета на экран
-*/
