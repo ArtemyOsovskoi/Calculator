@@ -16,6 +16,7 @@ html,body {
     flex-direction: column;
     justify-content: center;
     border: solid black;
+    border-radius: 4px;
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
@@ -23,17 +24,22 @@ html,body {
 }
 
 #display {
-    display: block;
-    overflow: auto;
-    text-align: left;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    text-align: right;
     word-wrap: break-word;
     word-break: break-all;
-    height: 20px;
     border: solid black;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    padding-left: 10px;
-    font-size: 30px;
+}
+
+#inputDisplay {
+    min-height: 44px;
+    font-size: 35px;
+}
+
+#resultDisplay {
+    min-height: 64px;
+    font-size: 45px;
 }
 
 #topButtons {
