@@ -49,20 +49,12 @@ function fillDisplay () {
                 getResultDisplay.innerText = calculator(a, operator, b);
                 if (getInputDisplay.innerHTML.match(/[/]/g) && b === '0') {
                     b = ''
-                    getResultDisplay.innerText = 'Please don\'t divide by 0';
+                    //getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1); 
+                    getResultDisplay.innerText = 'Can\'t divide by 0';
                 }
                 //console.log(getInputDisplay.innerHTML.match(/[/]/g) > 1);
                 //console.log(b);
             }  
-            //25.06.23 - нужно проверить строку getInputDisplay на наличии 2х и более введенных символов
-            //математических операций, и если это true - задать переменной a return value
-            //26.06 - пока проблема в том, что при первой матем. операции переменная a принимает
-            //величину результата и сохраняет ее, т.е. когда к b добавляем еще числа выходит неверно
-            //нужно как то оставлять a при введении новых чисел b и не менять ее динамически
-            //а потом это уже нужно всегда
-
-            /* нужно что бы до ввода следующей математической операции переменная a оставалась
-            как первое введенное число, а уже затем всегда являлась результатом предыдущего вычисления */
         })
     })
     Array.from(mathOpButtons).forEach((math) => { 
@@ -73,7 +65,6 @@ function fillDisplay () {
                 a = getResultDisplay.innerText;
             } 
             b = ''
-            //console.log(operator);
         })
     })
     equalsButton.addEventListener('click', () => {
@@ -89,7 +80,7 @@ fillDisplay();
 
 //calculator function
 function calculator (a, operator, b) {
-    return operate(operator, Number(a), Number(b))
+    return operate(operator, Number(a), Number(b)).toFixed(2)
 }
 
 //clear function
@@ -102,6 +93,25 @@ clearButton.addEventListener('click', ()=> {
     operator = ''
 })
 
+//delete function
+let deleteButton = document.getElementById('delete');
+deleteButton.addEventListener('click', ()=> {
+    let displayToArray = getInputDisplay.innerText.split('');
+    let lastChar = displayToArray[displayToArray.length - 1];
+
+    if (lastChar == '+' || lastChar == '-' ||lastChar == '*' || lastChar == '/') {
+        operator = ''
+        getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+        getResultDisplay.innerText = calculator(a, operator, b);
+    }
+    if (lastChar.match(/^\d+$/)){
+        b = b.slice(0, -1);
+        getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+        getResultDisplay.innerText = calculator(a, operator, b);
+    }
+     /* if (последний символ это математич операция) {operator=''} 
+    if (последний символ это число b) {b=''} */
+})
 /* 
 23.06 что поменять:
 - нужно считать результат каждых ДВУХ цифр, т.е. когда вводим 1+ 2+ 3, 1+2 считаются в момент ввода 2 и 
