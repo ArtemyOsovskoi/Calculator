@@ -42,13 +42,17 @@ function fillDisplay () {
             if (displayLength.length < 55 && operator === '') { //set limit on a numbers entered
                 getInputDisplay.innerText += num.value; 
                 a += event.target.value;
-                console.log(a);
+                //console.log(a);
             } else if (operator === '+' || operator === '-'|| operator === '*' || operator === '/') {
                 getInputDisplay.innerText += num.value; 
-                b += event.target.value; 
+                b += event.target.value;
                 getResultDisplay.innerText = calculator(a, operator, b);
-                console.log(getInputDisplay.innerHTML.match(/[\/\+\-\*]/g).length > 1);
-                console.log(b);
+                if (getInputDisplay.innerHTML.match(/[/]/g) && b === '0') {
+                    b = ''
+                    getResultDisplay.innerText = 'Please don\'t divide by 0';
+                }
+                //console.log(getInputDisplay.innerHTML.match(/[/]/g) > 1);
+                //console.log(b);
             }  
             //25.06.23 - нужно проверить строку getInputDisplay на наличии 2х и более введенных символов
             //математических операций, и если это true - задать переменной a return value
@@ -69,18 +73,21 @@ function fillDisplay () {
                 a = getResultDisplay.innerText;
             } 
             b = ''
-            console.log(operator);
+            //console.log(operator);
         })
     })
     equalsButton.addEventListener('click', () => {
-        getResultDisplay.innerText = calculator(a, operator, b); 
+        getResultDisplay.innerText = calculator(a, operator, b);
+        getInputDisplay.innerHTML = ''
+        a = ''
+        b = ''
+        operator = ''
     })
 
 }
 fillDisplay();
 
 //calculator function
-
 function calculator (a, operator, b) {
     return operate(operator, Number(a), Number(b))
 }
@@ -92,6 +99,7 @@ clearButton.addEventListener('click', ()=> {
     b = ''
     getInputDisplay.innerHTML = ''
     getResultDisplay.innerHTML = ''
+    operator = ''
 })
 
 /* 
