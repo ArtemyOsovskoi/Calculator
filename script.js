@@ -129,5 +129,9 @@ deleteButton.addEventListener('click', ()=> {
     }
 })
 
-//разобраться с кнопкой точки (нужно вводить только 1 раз и отключать ее, 
-//а потом снова включать для нового числа)
+//keyboard support
+ Array.from(numButtons).forEach((num) => { //convert numButtons DOMnodes to an array with Array.from()
+        num.addEventListener('keydown', (event) => {
+
+        })
+ })
