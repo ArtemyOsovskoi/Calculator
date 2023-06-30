@@ -89,9 +89,9 @@ function fillDisplay () {
         })
     })
     equalsButton.addEventListener('click', () => {
-        getResultDisplay.innerText = calculator(a, operator, b).toFixed(2);
-        getInputDisplay.innerHTML = ''
-        a = ''
+        a = calculator(a, operator, b).toFixed(2);
+        getResultDisplay.innerText = a;
+        getInputDisplay.innerHTML = a;
         b = ''
         operator = ''
     })
@@ -119,52 +119,21 @@ let deleteButton = document.getElementById('delete');
 deleteButton.addEventListener('click', ()=> {
     let displayToArray = getInputDisplay.innerText.split('');
     let lastChar = displayToArray[displayToArray.length - 1];
-    //1.когда 250+50 - lastChar = number, operator !='', b != ''
-    if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && operator != '' && b.length >= 1) {
-        //когда 250+50+5 
-        if (b.length == 1 && getInputDisplay.innerHTML.match(/[\/\+\-\*]/g).length > 1) {
-            b = b.slice(0, -1);
+    if (getInputDisplay.innerHTML != '') {
+        //before math operator, only first num (a) eg 25, 68231 etc - delete from a
+        if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && b == '') {
+            a = a.toString().slice(0, -1);
             getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
-            getResultDisplay.innerText = Number(a);
         }
-        //когда 250+50 
-        if (b.length > 1) {
-            b = b.slice(0, -1);
-            getResultDisplay.innerText = calculator (a, operator, b);
+        //first num (a) + math operator eg 25+, 231- etc - delete from math op
+        if (lastChar.match(/[\/\+\-\*]/g) && b == '') {
+            operator = ''
             getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
-        }  
-    }
-
-   /*  //2.когда 250+5 - lastChar=number, operator != '', b = ''
-    if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && operator !='' && b == '') {
-        //b = b.slice(0, -1);
-        getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
-        getResultDisplay.innerText = getResultDisplay.innerText.slice(0, -1);
-    } */
-
-    //3. когда 250+ - lastChar = operator, operator = '', b = ''\b != '' (250+25-2)
-    if (lastChar.match(/[\/\+\-\*]/g) && b == '' ) {
-        getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
-        //getResultDisplay.innerText = getResultDisplay.innerText.slice(0, -1);
-        //a = a.slice(0, -1);
-        operator = ''
-        
-        //когда 250+50-
-        if (b != '' ) {
-            getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
-            //getResultDisplay.innerText = getResultDisplay.innerText.slice(0, -1);
-            operator = '';
         }
-    }
-    
-    //4. когда 250 - lastChar = number, operator = '', b = ''
-    if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && operator == '' && b == '') {
-        getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
-        getResultDisplay.innerText = getResultDisplay.innerText.slice(0, -1);
-        a = a.slice(0, -1);
+        //fist num (a) + math op + next number (b) eg 25+2, 320/10 etc - delete from b
+        if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && b != '') {
+            b = b.toString().slice(0, -1);
+            getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+        }
     }
 })
-
-/* 29.06 - снова запутался, переписав функцию, проблема в ситуации 250+50+5 когда 5 = b удаляем
-и непонятно как "сделать" 50 в b тк иначе при 250+50 b == 0 или (если не удалять) или b == 5 что в обоих
-случаях неверно */
