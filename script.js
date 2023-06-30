@@ -38,27 +38,21 @@ let operator = ''; //store entered operator
 function fillDisplay () {
     Array.from(numButtons).forEach((num) => { //convert numButtons DOMnodes to an array with Array.from()
         num.addEventListener('click', (event) => {
-            let displayLength = getInputDisplay.innerText;
-            if (displayLength.length < 55 && operator === '') { //set limit on a numbers entered
+            if (operator === '') { 
                 getInputDisplay.innerText += num.value; 
                 a += event.target.value;
                 //prevent '.' double clicking
-                let displayToArray = getInputDisplay.innerText.split('');
-                let lastChar = displayToArray[displayToArray.length - 1];
-                if (lastChar === '.') {
-                    document.getElementById('.').disabled = true;
+                if (getInputDisplay.textContent.includes('.')) {
+                   document.getElementById('.').disabled = true;
                 }
                 console.log(a);
             } else if (operator === '+' || operator === '-'|| operator === '*' || operator === '/') {
                 getInputDisplay.innerText += num.value;
-                //if (b == '') {b = event.target.value;}
                 b += event.target.value;
-                //getResultDisplay.innerText = calculator(a, operator, b);
-                //prevent '.' double clicking
                 let displayToArray = getInputDisplay.innerText.split('');
                 let lastChar = displayToArray[displayToArray.length - 1];
-                if (lastChar === '.') {
-                    document.getElementById('.').disable = true;
+                if (getInputDisplay.textContent.includes('.') && lastChar == '.') {
+                   document.getElementById('.').disabled = true;
                 }
                 //prevent from dividing by 0
                 if (getInputDisplay.innerHTML.match(/[/]/g) && b === '0') {
@@ -66,7 +60,6 @@ function fillDisplay () {
                     getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1); 
                     alert('Can\'t divide by 0');
                 }
-                //console.log(getInputDisplay.innerHTML.match(/[/]/g) > 1);
                 console.log(b);
             }  
         })
@@ -74,18 +67,15 @@ function fillDisplay () {
     Array.from(mathOpButtons).forEach((math) => { 
         math.addEventListener('click', (event) => {
             getInputDisplay.innerText += math.value;
-            if (getInputDisplay.innerHTML.match(/[\/\+\-\*]/g).length > 1) { 
-                //a = getResultDisplay.innerText;
+            if (getInputDisplay.innerHTML.match(/[\/\+\-\*]/g).length > 1) {  
                 a = calculator(a, operator, b);
                 operator = event.target.innerText;
                 getInputDisplay.innerText = a + operator;
             } 
             operator = event.target.innerText;
             b = ''
-            //check if display has more than 1 math operator
-
-            //b = ''
-        console.log(operator);
+            document.getElementById('.').disabled = false;
+            console.log(operator);
         })
     })
     equalsButton.addEventListener('click', () => {
@@ -112,6 +102,7 @@ clearButton.addEventListener('click', ()=> {
     getInputDisplay.innerHTML = ''
     getResultDisplay.innerHTML = ''
     operator = ''
+    document.getElementById('.').disabled = false;
 })
 
 //delete function
@@ -137,3 +128,6 @@ deleteButton.addEventListener('click', ()=> {
         }
     }
 })
+
+//разобраться с кнопкой точки (нужно вводить только 1 раз и отключать ее, 
+//а потом снова включать для нового числа)
