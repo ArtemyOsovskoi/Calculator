@@ -106,32 +106,187 @@ clearButton.addEventListener('click', ()=> {
 })
 
 //delete function
-let deleteButton = document.getElementById('delete');
-deleteButton.addEventListener('click', ()=> {
-    let displayToArray = getInputDisplay.innerText.split('');
-    let lastChar = displayToArray[displayToArray.length - 1];
-    if (getInputDisplay.innerHTML != '') {
-        //before math operator, only first num (a) eg 25, 68231 etc - delete from a
-        if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && b == '') {
-            a = a.toString().slice(0, -1);
-            getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+function del () {
+    let deleteButton = document.getElementById('delete');
+    deleteButton.addEventListener('click', ()=> {
+        let displayToArray = getInputDisplay.innerText.split('');
+        let lastChar = displayToArray[displayToArray.length - 1];
+        if (getInputDisplay.innerHTML != '') {
+            //before math operator, only first num (a) eg 25, 68231 etc - delete from a
+            if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && b == '') {
+                a = a.toString().slice(0, -1);
+                getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+            }
+            //first num (a) + math operator eg 25+, 231- etc - delete from math op
+            if (lastChar.match(/[\/\+\-\*]/g) && b == '') {
+                operator = ''
+                getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+            }
+            //fist num (a) + math op + next number (b) eg 25+2, 320/10 etc - delete from b
+            if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && b != '') {
+                b = b.toString().slice(0, -1);
+                getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+            }
         }
-        //first num (a) + math operator eg 25+, 231- etc - delete from math op
-        if (lastChar.match(/[\/\+\-\*]/g) && b == '') {
-            operator = ''
-            getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
-        }
-        //fist num (a) + math op + next number (b) eg 25+2, 320/10 etc - delete from b
-        if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && b != '') {
-            b = b.toString().slice(0, -1);
-            getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
-        }
-    }
-})
+    })
+}
+del();
 
 //keyboard support
- Array.from(numButtons).forEach((num) => { //convert numButtons DOMnodes to an array with Array.from()
-        num.addEventListener('keydown', (event) => {
 
-        })
- })
+//digits key function
+function digits () {
+    if (operator === '') { 
+        getInputDisplay.innerText += event.key; 
+        a += Number(event.key);
+        //prevent '.' double clicking
+        if (getInputDisplay.textContent.includes('.')) {
+            document.getElementById('.').disabled = true;
+        }
+        console.log(a);
+    } else if (operator === '+' || operator === '-'|| operator === '*' || operator === '/') {
+        getInputDisplay.innerText += event.key;
+        b += Number(event.key);
+        let displayToArray = getInputDisplay.innerText.split('');
+        let lastChar = displayToArray[displayToArray.length - 1];
+        if (getInputDisplay.textContent.includes('.') && lastChar == '.') {
+            document.getElementById('.').disabled = true;
+        }
+        //prevent from dividing by 0
+        if (getInputDisplay.innerHTML.match(/[/]/g) && b === '0') {
+            b = ''
+            getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1); 
+            alert('Can\'t divide by 0');
+        }
+        console.log(b);
+    }  
+}
+
+//math operators key function
+function mathOp () {
+    getInputDisplay.innerText += event.key;
+    if (getInputDisplay.innerHTML.match(/[\/\+\-\*]/g).length > 1) {  
+        a = calculator(a, operator, b);
+        operator = event.key;
+        getInputDisplay.innerText = a + operator;
+    } 
+    operator = event.key;
+    b = ''
+    document.getElementById('.').disabled = false;
+}
+
+function period () {
+    if (operator === '') { 
+        getInputDisplay.innerText += event.key; 
+        a += event.key;
+        //prevent '.' double clicking
+        if (getInputDisplay.textContent.includes('.')) {
+            document.getElementById('.').disabled = true;
+        }
+        console.log(a);
+    } else if (operator === '+' || operator === '-'|| operator === '*' || operator === '/') {
+        getInputDisplay.innerText += event.key;
+        b += event.key;
+        let displayToArray = getInputDisplay.innerText.split('');
+        let lastChar = displayToArray[displayToArray.length - 1];
+        if (getInputDisplay.textContent.includes('.') && lastChar == '.') {
+            document.getElementById('.').disabled = true;
+        }
+        //prevent from dividing by 0
+        if (getInputDisplay.innerHTML.match(/[/]/g) && b === '0') {
+            b = ''
+            getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1); 
+            alert('Can\'t divide by 0');
+        }
+        console.log(b);
+    }   
+}
+
+//KeyboardEvent.code represents keys on keyboard eg "digit5" is button with "5" and "%" on it
+document.addEventListener('keydown', (event) => {
+    if (event.code == 'Digit0') {
+        digits();
+    }
+    if (event.code == 'Digit1') {
+        digits();
+    }
+    if (event.code == 'Digit2') {
+        digits();
+    }
+    if (event.code == 'Digit3') {
+        digits();
+    }
+    if (event.code == 'Digit4') {
+        digits();
+    }
+    if (event.code == 'Digit5') {
+        digits();
+    }
+    if (event.code == 'Digit6') {
+        digits();
+    }
+    if (event.code == 'Digit7') {
+        digits();
+    }
+    if (event.code == 'Digit8') {
+        digits();
+    }
+    if (event.code == 'Digit9') {
+        digits();
+    }
+    if (event.code == 'Period') {
+        period();
+    }
+    //math operators
+    if (event.code == 'NumpadAdd') { 
+        mathOp();
+    }
+    if (event.code == 'NumpadSubtract') { 
+        mathOp();
+    }
+    if (event.code == 'NumpadMultiply') { 
+        mathOp();
+    }
+    if (event.code == 'NumpadDivide') { 
+        mathOp();
+    }
+    //equals button
+    if (event.code == 'Equal') { //+
+        a = calculator(a, operator, b).toFixed(2);
+        getResultDisplay.innerText = a;
+        getInputDisplay.innerHTML = a;
+        b = ''
+        operator = ''
+    }
+    //delete button
+    if (event.code == 'Backspace') {
+        let displayToArray = getInputDisplay.innerText.split('');
+        let lastChar = displayToArray[displayToArray.length - 1];
+        if (getInputDisplay.innerHTML != '') {
+            //before math operator, only first num (a) eg 25, 68231 etc - delete from a
+            if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && b == '') {
+                a = a.toString().slice(0, -1);
+                getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+            }
+            //first num (a) + math operator eg 25+, 231- etc - delete from math op
+            if (lastChar.match(/[\/\+\-\*]/g) && b == '') {
+                operator = ''
+                getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+            }
+            //fist num (a) + math op + next number (b) eg 25+2, 320/10 etc - delete from b
+            if (lastChar.match(/^(\d)*(\.)?([0-9]{1})?$/gm) && b != '') {
+                b = b.toString().slice(0, -1);
+                getInputDisplay.innerText = getInputDisplay.innerText.slice(0, -1);
+            }
+        }
+    }
+    //clear button
+    if (event.code == 'Delete') {
+        a = ''
+        b = ''
+        getInputDisplay.innerHTML = ''
+        getResultDisplay.innerHTML = ''
+        operator = ''
+        document.getElementById('.').disabled = false;
+    }
+})
