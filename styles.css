@@ -85,8 +85,6 @@ button#clear {
     border: none;
 }
 
-
-
 #numbersAndMath {
     display: flex;
     justify-content: space-around;
@@ -95,12 +93,13 @@ button#clear {
 #numbers {
     display: flex;
     justify-content: space-around;
+    align-items: flex-end;
 }
 
 #numbers button {
     width: 100%;
-    padding: 29px;
-    font-size: 26.1px;
+    padding: 32px;
+    font-size: 28px;
     font-family: 'Share Tech Mono', monospace;
     background-color: #526D82;
     color: #DDE6ED;
@@ -115,11 +114,12 @@ button#clear {
 #mathOperators {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
 }
 
 #mathOperators button {
-    padding: 21.1px;
-    font-size: 20.8px;
+    padding: 22px;
+    font-size: 25px;
     background-color: #DDE6ED;
     color:  #F05454;
     font-family: 'Share Tech Mono', monospace;
