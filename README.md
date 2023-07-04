@@ -1,6 +1,8 @@
 # Calculator
 Calculator project i've made as a part of the Odin Project curicculum.
 
+Live: https://artemyosovskoi.github.io/Calculator/
+
 ## Overview
 The goal is to create functional web calculator with all basic math operators. 
 
