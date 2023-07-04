@@ -138,7 +138,7 @@ del();
 function digits () {
     if (operator === '') { 
         getInputDisplay.innerText += event.key; 
-        a += Number(event.key);
+        a += event.key;
         //prevent '.' double clicking
         if (getInputDisplay.textContent.includes('.')) {
             document.getElementById('.').disabled = true;
@@ -146,7 +146,7 @@ function digits () {
         console.log(a);
     } else if (operator === '+' || operator === '-'|| operator === '*' || operator === '/') {
         getInputDisplay.innerText += event.key;
-        b += Number(event.key);
+        b += event.key;
         let displayToArray = getInputDisplay.innerText.split('');
         let lastChar = displayToArray[displayToArray.length - 1];
         if (getInputDisplay.textContent.includes('.') && lastChar == '.') {
