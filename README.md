@@ -12,7 +12,7 @@ HTML, CSS, JavaScript
 
 ## Status
 Started: 16.06.2023
-Finished:
+Finished: 04.07.2023
 
 ## Conclusion
-WIP
+That was an interesting project to do, I liked working with chrome devtools to fix bugs and make everything work.
