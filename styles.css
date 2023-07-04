@@ -35,13 +35,13 @@ html,body {
 
 #inputDisplay {
     min-height: 44px;
-    font-size: 35px;
+    font-size: 36px;
     color: #68e9e0;
 }
 
 #resultDisplay {
     min-height: 64px;
-    font-size: 45px;
+    font-size: 54px;
     color: #68e9e0;
 }
 
@@ -50,6 +50,11 @@ html,body {
 }
 
 #topButtons button:hover {
+    background-color:#F05454;
+    color: #DDE6ED;
+}
+
+#topButtons button:focus {
     background-color:#F05454;
     color: #DDE6ED;
 }
