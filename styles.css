@@ -78,7 +78,7 @@ button#clear {
 
 #topButtons button {
     padding: 18px 28px 18px 28px;
-    font-size: 16px;
+    font-size: 20px;
     font-family: 'Share Tech Mono', monospace;
     background-color: #DDE6ED;
     color:   #F05454;
@@ -118,8 +118,6 @@ button#clear {
 }
 
 #mathOperators button {
-    padding: 22px;
-    font-size: 25px;
     background-color: #DDE6ED;
     color:  #F05454;
     font-family: 'Share Tech Mono', monospace;
